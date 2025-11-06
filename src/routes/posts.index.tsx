@@ -1,13 +1,10 @@
 // src/routes/posts.tsx
+import { listPosts } from "@/server/posts";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import prisma from "../lib/prisma"; // Adjust path as needed
 
 export const Route = createFileRoute("/posts/")({
-  loader: async () => {
-    const posts = await prisma.post.findMany();
-    return { posts };
-  },
   component: postsComponent,
+  loader: async () => listPosts(),
 });
 
 function postsComponent() {
